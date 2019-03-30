@@ -1,14 +1,15 @@
 from tkinter import *
 
+
 def get_salario():
+    #Pega o salário
     salario = txt_salario.get()
-    txt_salario.configure(state="disable")
-    dias_no_mes = txt_dias_no_mes.get()
-    txt_dias_no_mes.configure(state="disable")
-    temp = float(salario)/float(dias_no_mes)
+    txt_salario.configure(state="disable") #desabilita escrever na caixa
+    dias_no_mes = txt_dias_no_mes.get() #salva o valor
+    txt_dias_no_mes.configure(state="disable") #desabilita escrever na outra caixa
+    temp = float(salario)/float(dias_no_mes) #faz a divisão
     por_dia.set('{:.2f}'.format(temp))
     lbl_limite_valor = Label(janela, text=str(por_dia), bg='white', font=16)
-    
     
     
 janela = Tk()
@@ -23,9 +24,10 @@ dias_no_mes = StringVar()
 por_dia.set("0")
 dias_no_mes.set("0")
 
-lbl_salario = Label(janela, text="Digite seu ganho mensal:", font=("Calibri",16),bg='white')
-lbl_salario.grid(column=0, row=0)
 
+#Recebe a quantidade de dinheiro, salário
+lbl_salario = Label(janela, text="Digite seu ganho mensal: R$", font=("Calibri",16),bg='white')
+lbl_salario.grid(column=0, row=0)
 txt_salario = Entry(janela,width=10)
 txt_salario.grid(column=1, row=0, ipady=3)
 
@@ -41,10 +43,13 @@ btn_salario = Button(janela, text="Salvar", command=get_salario)
 btn_salario.grid(column=1, row=3)
 
 #Apresenta o quanto pode ser gasto por dia em uma caixinha
-lbl_limite = Label(janela, text="Você pode gastar por dia:", font=('Calibri',16), bg='white')
+lbl_limite = Label(janela, text="Você pode gastar por dia: R$", font=('Calibri',16), bg='white')
 lbl_limite.grid(column=0, row=4)
 lbl_limite_valor = Label(janela, textvariable=por_dia, bg='white', font=("Calibri",16))
 lbl_limite_valor.grid(column=1, row=4)
+
+#Dia atual do mês/período, podendo ser alterado pelo usuário
+
 
 janela.mainloop()
 
