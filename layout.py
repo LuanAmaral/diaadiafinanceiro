@@ -14,11 +14,22 @@ def get_salario():
 def get_saldo():
     #Pega o dia colocado na spinbox, multiplica pelo "limite diário" e diminui do gasto
     dia = spin_dia.get()
-    diario = str(por_dia.get())
-    entradas = int(dia) * float(diario)
-    gasto = txt_gasto.get()
-    entradas -= float(gasto)
-    saldo.set("{:.2f}".format(entradas))
+    if dia != dia_atual.get():
+        dia_atual.set(dia)
+        entrada = float(receita.get()) + float(por_dia.get())
+        receita.set(str(entrada))
+        gasto = float(txt_gasto.get())
+        gasto_temp = float(gasto_total.get()) + gasto
+        gasto_total.set(str(gasto_temp))
+        saldo_temp = float(receita.get()) - float(gasto_total.get())
+        saldo.set(str(saldo_temp))        
+    else:
+        gasto = float(txt_gasto.get())
+        gasto_temp = float(gasto_total.get()) + gasto
+        gasto_total.set(str(gasto_temp))
+        saldo_temp = float(receita.get()) - float(gasto_total.get())
+        saldo.set(str(saldo_temp))     
+    
     
     
 janela = Tk()
@@ -31,9 +42,16 @@ janela.resizable(False,400)
 por_dia = StringVar()
 dias_no_mes = StringVar()
 saldo = StringVar()
+gasto_total = StringVar()
+dia_atual = StringVar()
+receita = StringVar()
+
+receita.set("0")
+dia_atual.set("0")
 por_dia.set("0")
 dias_no_mes.set("0")
 saldo.set("0")
+gasto_total.set("0")
 
 #Primeiro "Titulo" do programa
 
