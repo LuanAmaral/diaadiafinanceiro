@@ -28,7 +28,11 @@ def get_saldo():
         gasto_temp = float(gasto_total.get()) + gasto
         gasto_total.set(str(gasto_temp))
         saldo_temp = float(receita.get()) - float(gasto_total.get())
-        saldo.set(str(saldo_temp))     
+        saldo.set(str(saldo_temp))
+    if float(saldo.get()) < 0:
+        lbl_saldo_valor.configure(fg='red')
+    else:
+        lbl_saldo_valor.configure(fg='green')
     
     
     
