@@ -11,10 +11,14 @@ def get_salario():
     lbl_limite_valor = Label(janela, text=str(por_dia), bg='white', font=16)
     painel.insert(INSERT, "\n\nDados computados com sucesso!")
     
-def get_dia():
-    #Pega o dia colocado na spinbox
-    total = 0
-        
+def get_saldo():
+    #Pega o dia colocado na spinbox, multiplica pelo "limite diário" e diminui do gasto
+    dia = spin_dia.get()
+    diario = str(por_dia.get())
+    entradas = int(dia) * float(diario)
+    gasto = txt_gasto.get()
+    entradas -= float(gasto)
+    saldo.set("{:.2f}".format(entradas))
     
     
 janela = Tk()
@@ -26,9 +30,12 @@ janela.resizable(False,400)
 #Váriaveis
 por_dia = StringVar()
 dias_no_mes = StringVar()
+saldo = StringVar()
 por_dia.set("0")
 dias_no_mes.set("0")
+saldo.set("0")
 
+#Primeiro "Titulo" do programa
 
 #Recebe a quantidade de dinheiro, salário
 lbl_salario = Label(janela, text="Digite seu ganho mensal: R$", font=("Calibri",13),borderwidth=2,pady=10, padx=10)
@@ -72,7 +79,15 @@ txt_categoria = Entry(janela,width=10)
 txt_categoria.grid(column=1, row=7, ipady=3)
 
 #Botão de adicionar o gasto
-###########################
+btn_gasto = Button(janela, text="Computar", command=get_saldo, pady=5, bg="black", fg="white")
+btn_gasto.grid(column=0, row=8)
+
+#Apresenta o saldo atual, positivo ou negativo
+lbl_saldo = Label(janela, text="Saldo: R$", font=('Calibri',13),borderwidth=2,padx=10)
+lbl_saldo.grid(column=0, row=9)
+lbl_saldo_valor = Label(janela, textvariable=saldo, font=("Calibri",13))
+lbl_saldo_valor.grid(column=1, row=9)
+
 
 #Painel de comunicação com o usuário
 painel = Text(janela, width=50, borderwidth=2, relief="solid", wrap=WORD)
